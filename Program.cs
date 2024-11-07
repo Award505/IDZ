@@ -46,6 +46,27 @@ namespace APP
         //         }
         //    } 
 
+            // ИДЗ 1 Уровень 2 исправил
+        Console.Write("Введите четырехзначное число: ");
+        int number = int.Parse(Console.ReadLine());
+        if (number < 1000 || number > 9999)
+            {
+                Console.WriteLine("Число должно быть четырехзначным.");
+                return;
+            }
+
+
+        int firstDigit = number / 1000;       
+        int secondDigit = (number / 100) % 10; 
+        int thirdDigit = (number / 10) % 10;   
+        int fourthDigit = number % 10;         
+
+
+        int newNumber = secondDigit * 1000 + firstDigit * 100 + fourthDigit * 10 + thirdDigit;
+
+
+        Console.WriteLine(newNumber);
+
         
 
             
