@@ -1,0 +1,41 @@
+static bool isZkey(string? key){
+    return key == "z";
+}
+while(true){
+    
+Console.WriteLine(@"Выбирете единицу измерения:
+1 — килограмм
+2 — миллиграмм
+3 — грамм 
+4 — тонна 
+5 - центнер");
+var t = Console.ReadLine();
+if (isZkey(t)) break;
+var number = Convert.ToInt32(t);
+Console.WriteLine("Введите число:");
+
+
+var M = Convert.ToInt32(Console.ReadLine());
+
+switch (number){
+    case 1:
+        Console.WriteLine(M);
+    break;
+
+    case 2:
+        Console.WriteLine(M * 1000000);
+    break;
+
+    case 3:
+        Console.WriteLine(M * 1000);
+    break;
+
+    case 4:
+         Console.WriteLine($"{M*0.001:f2}");
+    break;
+
+    case 5:
+        Console.WriteLine($"{M * 0.01:f2}");
+    break;
+}
+}
