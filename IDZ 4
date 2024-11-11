@@ -2,13 +2,14 @@ static bool isZkey(string? key){
     return key == "z";
 }
 while(true){
-    
+
 Console.WriteLine(@"Выбирете единицу измерения:
 1 — килограмм
 2 — миллиграмм
 3 — грамм 
 4 — тонна 
 5 - центнер");
+Console.WriteLine("Для выхода из программы введите: Z ");
 var t = Console.ReadLine();
 if (isZkey(t)) break;
 var number = Convert.ToInt32(t);
