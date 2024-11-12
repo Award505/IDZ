@@ -1,10 +1,12 @@
-string a = Console.ReadLine();
-int strLengt = !String.IsNullOrEmpty(a) ? a.Length : 0;
-int b = 0;
-for (int i = 0; i < strLengt; i++){
-    
-    
-    int c = a[i] - '0';
-    if (c > b) b = c;
+static void getValue(double a, double b){
+    double step = Math.PI/60;
+    double start = a;
+    Console.WriteLine($"x\ty");
+    while(start < b){
+        double result = Math.Tanh(start) + 1;
+
+        Console.WriteLine($"{start:f3}\t{result:f3}");
+        start = start + step;
+    }
 }
-Console.WriteLine(b);
+getValue(Math.PI/4, Math.PI/2);
