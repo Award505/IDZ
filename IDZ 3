@@ -1,12 +1,18 @@
-static void getValue(double a, double b){
-    double step = Math.PI/60;
-    double start = a;
-    Console.WriteLine($"x\ty");
-    while(start < b){
-        double result = Math.Tanh(start) + 1;
+static void Main()
+    {
+        double k = 5.0; // длина палки
+        double h = 0.1; // шаг
+        double y = 2.0; // начальное значение y
+        double endY = 3.0; // конечное значение y
 
-        Console.WriteLine($"{start:f3}\t{result:f3}");
-        start = start + step;
+        do
+        {
+            double angleRad = Math.Acos(y / k); // угол в радианах
+            double angleDeg = angleRad * (180 / Math.PI); // угол в градусах
+
+            Console.WriteLine($"y = {y:F1} м -> угол = {angleDeg:F2}°");
+
+            y += h; // увеличиваем y на шаг h
+        }
+        while (y <= endY); // условие для продолжения цикла
     }
-}
-getValue(Math.PI/4, Math.PI/2);
