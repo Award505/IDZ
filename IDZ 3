@@ -1,18 +1,15 @@
-static void Main()
-    {
-        double k = 5.0; // длина палки
-        double h = 0.1; // шаг
-        double y = 2.0; // начальное значение y
-        double endY = 3.0; // конечное значение y
+double k = 5.0; 
+        double h = 0.1; 
+        double y = 2.0; 
+        double end = 3.0; 
 
         do
         {
-            double angleRad = Math.Acos(y / k); // угол в радианах
-            double angleDeg = angleRad * (180 / Math.PI); // угол в градусах
+            double rad = Math.Acos(y / k); 
+            double gr = rad * (180 / Math.PI); 
 
-            Console.WriteLine($"y = {y:F1} м -> угол = {angleDeg:F2}°");
+            Console.WriteLine($"y = {y:F1} м => угол = {gr:F2}°");
 
-            y += h; // увеличиваем y на шаг h
+            y += h; 
         }
-        while (y <= endY); // условие для продолжения цикла
-    }
+        while (y <= end); 
