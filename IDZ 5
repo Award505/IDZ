@@ -1,0 +1,18 @@
+int[] a = Console.ReadLine().Trim().Split().Select(int.Parse).ToArray();
+
+for (int i = 0;i< a.Length;i++){
+    if(qwe(a[i])){
+        Console.WriteLine($"Число:{a[i]}\t\tЕго номер:{i}");
+    }
+}
+bool qwe(int a){
+    if(a <= 1){
+        return false;
+    }
+    for(int i = 2;i<= Math.Sqrt(a);i++){
+        if(a%i ==0){
+            return false;
+        }
+    }
+    return true;
+}
