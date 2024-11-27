@@ -1,0 +1,7 @@
+string[] a = Console.ReadLine().Trim('!').Split(';');
+foreach(var word in a){
+    string b = word.Trim();
+    if(b.Length > 0 && char.ToLower(b[0]) == char.ToLower(b[b.Length-1])){
+        Console.WriteLine(b);
+    }
+}
