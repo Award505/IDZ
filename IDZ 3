@@ -1,10 +1,7 @@
-string a = Console.ReadLine();
-int strLengt = a.Length ;
+int a = int.Parse(Console.ReadLine());
 int b = 0;
-for (int i = 0; i < strLengt; i++){
-    
-    
-    int c = a[i] - '0';
+for (int i = a; i > 0; i /=10 ){
+    int c = i % 10;
     if (c > b) b = c;
 }
 Console.WriteLine(b);
