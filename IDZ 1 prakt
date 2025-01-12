@@ -1,0 +1,77 @@
+static void Main()
+    {   
+        Turtle.Show();
+        Turtle.Speed = 10;
+        Turtle.PenUp();
+        Turtle.MoveTo(100, 100);
+        Turtle.Turn(192.5);
+        Turtle.PenDown();
+
+        Turtle.Move(50);
+        Turtle.Turn(-45);
+        shit();
+
+        nextShit();
+
+        Turtle.PenUp();
+        Turtle.MoveTo(100, 225);
+        Turtle.Turn(147.8);
+        Turtle.PenDown();
+
+        shit2();
+        
+        Turtle.PenUp();
+        Turtle.MoveTo(99, 220);
+        Turtle.Turn(275);
+        Turtle.PenDown();
+        Turtle.Move(50);
+        Turtle.Turn(-45);
+
+        Turtle.Move(50);
+        Turtle.Turn(-45);
+        shit();
+
+        nextShit();
+        
+
+    }
+ 
+    static void shit(){
+        
+        for (int i = 0; i < 4; i++)
+            {
+                Turtle.Move(50);
+                Turtle.Turn(90);
+            }
+    }
+
+    static void nextShit(){
+        for (int i = 0;i < 2; i++){
+            Turtle.Move(50);
+        Turtle.Turn(-45);
+        Turtle.Move(50);
+        Turtle.Turn(45);
+        Turtle.Move(50);
+        Turtle.Turn(45);
+        Turtle.Move(50);
+        Turtle.Turn(-45);
+        shit();
+        }
+        
+    }
+
+    static void shit2(){
+        
+        for(int i = 0;i < 2; i ++){
+            Turtle.Move(50);
+            Turtle.Turn(45);
+            Turtle.Move(50);
+            Turtle.Turn(45);
+            Turtle.Move(50);
+            Turtle.Turn(-45);
+            shit();
+            Turtle.Move(50);
+            Turtle.Turn(-45);
+        }
+        Turtle.Move(50);
+    }
