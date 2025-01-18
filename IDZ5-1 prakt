@@ -1,0 +1,7 @@
+string S = "Cтрока которую нужно добавить в файл.";
+
+        string filePath = "input.txt";
+
+        File.AppendAllText(filePath, S);
+
+        Console.WriteLine($"Строка успешно добавлена в файл");
