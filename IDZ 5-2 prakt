@@ -1,0 +1,20 @@
+string input = "input.txt";
+        string output = "output.txt";
+
+        if (!File.Exists(input))
+        {
+            
+            File.WriteAllText(output, "-1");
+            return;
+        }
+
+        string[] lines = File.ReadAllLines(input);
+
+        int count = 0;
+        foreach (var line in lines)
+        {
+            string[] numbers = line.Split(' ');
+            count += numbers.Length;
+        }
+
+        File.WriteAllText(output, count.ToString());
