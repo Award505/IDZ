@@ -2,50 +2,49 @@ using System.Linq;
 using System.IO;
 
         
-        // Глухие согласные буквы
+        
         char[] deafConsonants = { 'к', 'п', 'с', 'т', 'ф', 'х', 'ц', 'ч', 'ш', 'щ' };
 
-        // Чтение данных из файла
-        string filePath = "input.txt"; // Укажите путь к вашему файлу
+        
+        string filePath = "input.txt"; 
         string content = File.ReadAllText(filePath);
 
-        // Разделение строки на слова
+        
         string[] words = content.Split(',');
         for (int i = 0; i < words.Length; i++)
         {
-            words[i] = words[i].Trim(); // Убираем пробелы вокруг слов
+            words[i] = words[i].Trim(); 
         }
 
-        // Множества для анализа
-        HashSet<char> oddConsonants = new HashSet<char>(deafConsonants); // Для нечетных слов
-        HashSet<char> evenConsonants = new HashSet<char>();             // Для четных слов
+        
+        HashSet<char> oddConsonants = new HashSet<char>(deafConsonants); // для нечетных слов
+        HashSet<char> evenConsonants = new HashSet<char>();             // для четных слов
 
-        // Перебор слов
+        
         for (int i = 0; i < words.Length; i++)
         {
             HashSet<char> currentConsonants = new HashSet<char>();
             foreach (char c in words[i])
             {
-                if (Array.Exists(deafConsonants, x => x == c)) // Проверяем, является ли буква глухой согласной
+                if (Array.Exists(deafConsonants, x => x == c)) 
                 {
                     currentConsonants.Add(c);
                 }
             }
 
-            if (i % 2 == 0) // Нечетное слово (индекс i + 1 нечетный)
+            if (i % 2 == 0) 
             {
                 oddConsonants.IntersectWith(currentConsonants);
             }
-            else // Четное слово
+            else 
             {
-                evenConsonants.UnionWith(currentConsonants);
+                evenConsonants.UnionWith(currentConsonants); //все глухие согласные из всех четных слов.
             }
         }
 
-        // Убираем буквы из четных слов
+        
         oddConsonants.ExceptWith(evenConsonants);
 
-        // Преобразуем результат в список, сортируем и выводим
         List<char> result = new List<char>(oddConsonants);
         result.Sort();
 
