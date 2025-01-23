@@ -1,0 +1,23 @@
+Console.WriteLine("Введите элементы очереди через пробел:");
+        string[] input = Console.ReadLine().Split(' ');
+        
+        Queue<int> originalQueue = new Queue<int>();
+        foreach (string number in input)
+        {
+            if (int.TryParse(number, out int value))
+                originalQueue.Enqueue(value);
+        }
+
+        Queue<int> newQueue = new Queue<int>();
+        int index = 0;
+        foreach (int element in originalQueue)
+        {
+            
+            newQueue.Enqueue(element);
+            if (index % 2 == 0)
+                newQueue.Enqueue(element);
+            index++;
+        }
+
+        Console.WriteLine("Исходная очередь: " + string.Join(", ", originalQueue));
+        Console.WriteLine("Новая очередь: " + string.Join(", ", newQueue));
