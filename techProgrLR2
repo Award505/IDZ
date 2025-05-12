@@ -1,0 +1,87 @@
+using System;
+using System.IO;
+using System.Net.NetworkInformation;
+using System.Net;
+
+class Program
+{
+    static void Main()
+    {
+        string ipFile = "servers.txt";
+              
+        try
+        {
+            if (!File.Exists(ipFile))
+            {
+                throw new FileNotFoundException($"Файл {ipFile} не найден.");
+            }
+
+            string[] servers = File.ReadAllLines(ipFile);
+            if (servers.Length == 0)
+            {
+                throw new InvalidDataException("Файл серверов пуст.");
+            }
+
+            Console.WriteLine("Начинаем проверку соединений...\n");
+
+            foreach (string server in servers)
+            {
+                string ip = server.Trim();
+                if (string.IsNullOrEmpty(ip)) continue;
+
+                if (!IsValidIpAddress(ip))
+                {
+                    Console.WriteLine($"[-] {ip} - неверный формат IP-адреса");
+                    continue;
+                }
+
+                bool success = pingServer(ip, out long time);
+                Console.WriteLine(success ? $"[+] {ip} ответил за {time} мс" : $"[-] {ip} недоступен");
+            }
+
+            Console.WriteLine("\nПроверка завершена.");
+        }
+        catch (FileNotFoundException ex)
+        {
+            Console.WriteLine($"Ошибка: {ex.Message}");
+        }
+        catch (InvalidDataException ex)
+        {
+            Console.WriteLine($"Ошибка: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Произошла непредвиденная ошибка: {ex.Message}");
+        }
+    }
+
+    static bool IsValidIpAddress(string ip)
+    {
+        return IPAddress.TryParse(ip, out IPAddress address);
+    }
+
+    static bool pingServer(string host, out long time)
+    {
+        try
+        {
+            using (Ping ping = new Ping())
+            {
+                PingReply reply = ping.Send(host, 1000);
+                time = reply.RoundtripTime;
+                return reply.Status == IPStatus.Success;
+            }
+        }
+        catch (PingException ex)
+        {
+            time = -1;
+            Console.WriteLine($"Ошибка при пинге {host}: {ex.Message}");
+            return false;
+        }
+        catch (Exception ex)
+        {
+            time = -1;
+            Console.WriteLine($"Неожиданная ошибка при пинге {host}: {ex.Message}");
+            return false;
+        }
+    }
+}
