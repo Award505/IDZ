@@ -1,0 +1,27 @@
+using System;
+using System.IO;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        int currentDay = (int)DateTime.Now.DayOfWeek;
+        Console.WriteLine($"Сегодня {showDay(currentDay)}");
+    }   
+
+    static string showDay(int dayNumber)
+    {
+        switch (dayNumber)
+        {
+            case 0: return "воскресенье";
+            case 1: return "понедельник";
+            case 2: return "вторник";
+            case 3: return "среда";
+            case 4: return "четверг";
+            case 5: return "пятница";
+            case 6: return "суббота";
+            default: return "неизвестный день";
+        }
+    }
+}
