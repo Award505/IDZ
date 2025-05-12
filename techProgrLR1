@@ -1,0 +1,84 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.IO;
+
+class Program
+{
+
+    static void Main()
+    {
+        try {
+            Console.WriteLine("Введите имя файла: ");
+            string name = Console.ReadLine();
+            Console.WriteLine("Введите количество элементов в массиве: ");
+            int n = Convert.ToInt32(Console.ReadLine());
+            int[] a = new int[n];
+            Console.WriteLine("Введите элементы массива через пробел: ");
+            string[] s = Console.ReadLine().Split();
+            for (int i = 0; i < s.Length; i++)
+            {
+                a[i] = Convert.ToInt32(s[i]);
+            }
+            NewMethod(name, a);
+            foreach(var b in a)
+            {
+                Console.WriteLine(b);
+            }
+        }
+        catch (OverflowException)
+        {
+            Console.WriteLine("Укажите верное количество элементов");
+            Main();
+        }
+
+        catch (IndexOutOfRangeException)
+        {
+            Console.WriteLine("Укажите верное количество элементов в массиве");
+            Main();
+        }
+
+        catch (ArgumentException)
+        {
+            Console.WriteLine("Укажите верное имя файла");
+            Main();
+        }
+
+        catch (FormatException)
+        {
+            Console.WriteLine("Укажите верный формат");
+            Main();
+        }
+
+        catch (DirectoryNotFoundException)
+        {
+            Console.WriteLine("Директория не найдена");
+            Main();
+        }
+
+        catch (IOException)
+        {
+            Console.WriteLine("Укажите верное имя файла");
+            Main();
+        }
+        
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Исключение: {ex.Message}");
+        }
+
+
+    }
+
+        static void NewMethod(string name, int[] a)
+        {
+            StreamWriter f = File.CreateText(name);
+            foreach (var x in a)
+            {
+                f.WriteLine(x);
+
+            }
+            f.Close();
+        }
+}
+}
