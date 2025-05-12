@@ -1,0 +1,126 @@
+using System;
+using System.IO;
+using System.Linq;
+
+class Program
+{
+    static void Main()
+    {
+        string fileA = "SA.txt";
+        string fileB = "SB.txt";
+        string fileC = "SC.txt";
+
+        try
+        {
+            int[,] A = ReadMatrixFromFile(fileA, out int n);
+            int[,] B = ReadMatrixFromFile(fileB, out int m);
+
+            if (n != m) // Проверка на возможность умножения
+            {
+                Console.WriteLine("Ошибка: матрицы нельзя перемножить (размеры не совпадают).");
+                return;
+            }
+
+            int[,] C = MultiplyUpperTriangularMatrices(A, B, n);
+            WriteMatrixToFile(fileC, C, n);
+        }
+        catch (FileNotFoundException ex)
+        {
+            Console.WriteLine($"Ошибка: Файл не найден - {ex.FileName}");
+        }
+        catch (IOException ex)
+        {
+            Console.WriteLine($"Ошибка ввода-вывода: {ex.Message}");
+        }
+        catch (FormatException)
+        {
+            Console.WriteLine("Ошибка: Некорректный формат данных в файле.");
+        }
+        catch (IndexOutOfRangeException)
+        {
+            Console.WriteLine("Ошибка: Файл содержит некорректные данные (размеры строк не соответствуют).");
+        }
+        catch (InvalidDataException ex)
+        {
+            Console.WriteLine($"Ошибка: Матрица в файле '{ex.Message}' не является верхнетреугольной.");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Неизвестная ошибка: {ex.Message}");
+        }
+    }
+
+    static int[,] ReadMatrixFromFile(string fileName, out int size)
+    {
+        string[] lines = File.ReadAllLines(fileName);
+        size = lines.Length;
+        int[,] matrix = new int[size, size];
+
+        for (int i = 0; i < size; i++)
+        {
+            int[] values = lines[i].Split().Select(int.Parse).ToArray();
+
+            if (values.Length != size - i)
+            {
+                throw new InvalidDataException(fileName); // Ошибка, если строка не содержит нужное количество элементов
+            }
+
+            for (int j = i; j < size; j++)
+            {
+                matrix[i, j] = values[j - i];
+            }
+        }
+
+        // Проверка, что матрица верхнетреугольная (все элементы ниже главной диагонали нулевые)
+        for (int i = 1; i < size; i++)
+        {
+            for (int j = 0; j < i; j++)
+            {
+                if (matrix[i, j] != 0)
+                {
+                    throw new InvalidDataException(fileName); // Файл содержит не верхнетреугольную матрицу
+                }
+            }
+        }
+
+        return matrix;
+    }
+
+    static void WriteMatrixToFile(string fileName, int[,] matrix, int size)
+    {
+        using (StreamWriter writer = new StreamWriter(fileName))
+        {
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = i; j < size; j++)
+                {
+                    writer.Write(matrix[i, j]);
+
+                    if (j < size - 1)
+                    {
+                        writer.Write(" ");
+                    }
+                }
+                writer.WriteLine();
+            }
+        }
+    }
+
+    static int[,] MultiplyUpperTriangularMatrices(int[,] A, int[,] B, int n)
+    {
+        int[,] C = new int[n, n];
+
+        for (int i = 0; i < n; i++)
+        {
+            for (int j = i; j < n; j++) // Так как верхнетреугольная
+            {
+                for (int k = i; k <= j; k++)
+                {
+                    C[i, j] += A[i, k] * B[k, j];
+                }
+            }
+        }
+
+        return C;
+    }
+}
